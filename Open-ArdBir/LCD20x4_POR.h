@@ -1,6 +1,6 @@
-char *PIDName[]   ={"Uso", "Constante kP", "Constante kI", "Constante kD", "SampleTime  ", "Janela  ms  ", "PWM Ebu     ", "Calibragem  " , "Histerese   "};
-char *stageName[] ={"Mash In   ", "Fitase    ", "Glucanase ", "Protease  ", "bAmilase  ", "aAmilase  ", "aAmilase2 ", "Mash Out  ", "Ebulicao  ", "Cooling   ", "Whirlpool "};
-char *unitName[]  ={"Escala     ", "Sensor     ", "Ebulicao   ", "Ebulicao   ", "Ciclo Bomba", "Pausa Bomba", "Bmb PreMash",  "Bmb em Mash", "Bmb MashOut", "Bmb em Ebu ", "Bmb Parada ", "Bmb Parada ", "PID Pipe   " , "Pula Ad.Mlt   ", "Pula Remova", "Pula Iodo  ", "Tempo Iodo ", "Whirlpool "};
+char *PIDName[]   ={"Uso", "Constante kP", "Constante kI", "Constante kD", "SampleTime  ", "Janela  ms  ", "PWM Fervura     ", "Calibragem  " , "Histerese   "};
+char *stageName[] ={"Mash In   ", "Fitase    ", "Glucanase ", "Protease  ", "bAmilase  ", "aAmilase  ", "aAmilase2 ", "Mash Out  ", "Fervura  ", "Resfriamento   ", "Whirlpool "};
+char *unitName[]  ={"Escala     ", "Sensor     ", "Fervura   ", "Fervura   ", "Ciclo Bomba", "Pausa Bomba", "Bmb PreMash",  "Bmb em Mash", "Bmb MashOut", "Bmb em Fvr ", "Bmb Parada ", "Bmb Parada ", "PID Pipe   " , "Pula Ad.Mlt   ", "Pula Remova", "Pula Iodo  ", "Tempo Iodo ", "Whirlpool "};
 
 byte HeatONOFF[8]    = {B00000, B01110, B01010, B01010, B01100, B01010, B01010, B00000};  // [5] HEAT symbol
 byte RevHeatONOFF[8] = {B11111, B10001, B10101, B10101, B10011, B10101, B10101, B11111};  // [6] reverse HEAT symbol
@@ -164,7 +164,7 @@ void SaltoStep(){
 
 void RemoveMalt(){
   lcd.setCursor(3,2);
-  lcd.print(F("Eliminar Malte"));
+  lcd.print(F("Remover Graos"));
   LCD_Procedo();
 }
 
@@ -176,7 +176,7 @@ void Temp_Wait(float Temp){
 void Boil(float Heat, float Temp, byte Tipo){
   if (Tipo==1){
     lcd.setCursor(0,0);
-    lcd.print(F(" AUTO -->   Ebulicao"));
+    lcd.print(F(" AUTO -->   Fervura"));
   }
   
   //lcd.setCursor(1,1);
@@ -206,7 +206,7 @@ void HopAdd(byte HopAdd){
 void Raffreddamento() {
   lcd.clear();
   lcd.setCursor(3, 1);
-  lcd.print(F("Inicio COOLING"));
+  lcd.print(F("Inicio Resfriamento"));
   LCD_Procedo();
 }
 
@@ -361,8 +361,8 @@ void UnitSet(byte unitSet, byte i){
     
     case(17):
       if (unitSet == 0) lcd.print(F("    Off"));
-      if (unitSet == 1) lcd.print(F("   Cold"));
-      if (unitSet == 2) lcd.print(F("    Hot"));
+      if (unitSet == 1) lcd.print(F("   Frio"));
+      if (unitSet == 2) lcd.print(F("    Quente"));
       break;   
   }  
 }
@@ -370,7 +370,7 @@ void UnitSet(byte unitSet, byte i){
 
 void Menu_3_3(){
   lcd.setCursor(0,1);
-  lcd.print(F(" Set  Automatizacao "));
+  lcd.print(F(" Set  Automacao "));
   LCD_SGEO();
 }     
 void Menu_3_3_x(byte Stage){
@@ -409,7 +409,7 @@ void NumHops(byte SetNumHops){
 
 void Menu_3_3_9(){
   lcd.setCursor(1,2);
-  lcd.print(F("Ebulicao      "));
+  lcd.print(F("Fervura      "));
   LCD_QQxO();
 } 
 
@@ -454,7 +454,7 @@ void Menu_3_4_2(){
 }
 void Menu_3_4_3(){
   lcd.setCursor(2,2);
-  lcd.print(F("Eliminar Receita"));
+  lcd.print(F("Excluir Receita"));
   LCD_SGEO();
 }
 void Menu_3_4_4(){
@@ -539,7 +539,7 @@ void SalvaRicetta(){
 
 void CancelloRicetta(byte Ricetta){
   lcd.setCursor(0,2);
-  lcd.print(F("Eliminar Receita"));
+  lcd.print(F("Excluir Receita"));
   if (Ricetta<10)lcd.print(F("0"));
   lcd.print(Ricetta);
   LCDSpace(1);
@@ -640,11 +640,11 @@ void Credits(){
 void Menu_4(){ 
     lcd.clear();
     lcd.setCursor(3,0);
-    lcd.print(F("TEST DELLA RAM"));
+    lcd.print(F("TESTE DE MEMORIA"));
 }
 void Menu_4_1(){
     lcd.setCursor(3,1);
-    lcd.print(F("Memoria Libera"));
+    lcd.print(F("Memoria Livre"));
     lcd.setCursor(6,2);
 
     if (freeRam()<100&&freeRam()>=10)LCDSpace(1);
@@ -684,7 +684,7 @@ void prompt_for_water (){
 
 void Resume(){
   lcd.setCursor(1,1);
-  lcd.print(F("Iniciar Cozimento?"));
+  lcd.print(F("Iniciar Fervura?"));
   LCD_Procedo();
 }
 
@@ -702,7 +702,7 @@ void Iodine(float Temp, int Time){
   PauseScreen();
   
   lcd.setCursor(1,1);
-  lcd.print(F("   TESTE DO IODO  "));
+  lcd.print(F("   TESTE DE IODO  "));
   
   //lcd.setCursor(7,0);
   PrintTemp(7,0,Temp,2);
@@ -766,14 +766,14 @@ void ArdBir(){
 void PartenzaRitardata(){
   Clear_2_3();
   lcd.setCursor(2,1);
-  lcd.print(F("Atrasar  Inicio?"));
+  lcd.print(F("Adiar  Inicio?"));
   lcd.setCursor(12,3);
   lcd.print(F("Nao  Sim")); 
 }
 
 void ImpostaTempo(unsigned long Time){
   lcd.setCursor(2,1);
-  lcd.print(F("Configurar atraso"));
+  lcd.print(F("Configurar adiamento"));
  
   CountDown(Time*60,6,2,2);
   
@@ -797,7 +797,7 @@ void TemperaturaRaggiunta(){
 
 void ImpostaWhirlpool(unsigned long Time) {
   lcd.setCursor(2, 1);
-  lcd.print(F("Timing Whirlpool"));
+  lcd.print(F("Tempo Whirlpool"));
  
   CountDown(Time * 60, 6, 2, 2);
   
